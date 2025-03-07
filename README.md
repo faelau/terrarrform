@@ -29,6 +29,11 @@ radarr:
           - name: Remux-1080p - Anime
             score: 1500
       - trash_ids:
+          - 820b09bb9acbfde9c35c71e0e565dad8
+        assign_scores_to:
+          - name: HD Bluray + WEB (GER)
+            score: 70
+      - trash_ids:
           - d6e9318c875905d6cfb5bee961afcea9
         assign_scores_to:
           - name: HD Bluray + WEB
@@ -59,6 +64,11 @@ sonarr:
         assign_scores_to:
           - name: Remux-1080p - Anime
             score: 1500
+      - trash_ids:
+          - 290078c8b266272a5cc8e251b5e2eb0b
+        assign_scores_to:
+          - name: HD Bluray + WEB (GER)
+            score: 70
       - trash_ids:
           - ae575f95ab639ba5d15f663bf019e3e8
         assign_scores_to:
