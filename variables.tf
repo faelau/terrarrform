@@ -14,6 +14,14 @@ variable "radarr_credentials" {
   }
 }
 
+variable "readarr_credentials" {
+  type = object({ url = string, apiKey = string })
+  default = {
+    url    = "https://readarr.laura.services"
+    apiKey = "4246a0f3e9d94fc9a9e24ad6437c01d5"
+  }
+}
+
 variable "sonarr_credentials" {
   type = object({ url = string, apiKey = string })
   default = {
