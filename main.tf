@@ -166,14 +166,6 @@ resource "prowlarr_application_radarr" "radarr" {
   api_key      = var.radarr_credentials.apiKey
 }
 
-resource "prowlarr_application_readarr" "readarr" {
-  name         = "readarr.laura.services"
-  sync_level   = "fullSync"
-  base_url     = "https://readarr-princessdomino.venom.mygiga.cloud"
-  prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
-  api_key      = var.readarr_credentials.apiKey
-}
-
 resource "prowlarr_application_sonarr" "sonarr" {
   name         = "sonarr.laura.services"
   sync_level   = "fullSync"
@@ -195,20 +187,6 @@ resource "radarr_download_client_sabnzbd" "radarr" {
   remove_completed_downloads = true
 }
 
-resource "readarr_download_client_sabnzbd" "readarr" {
-  enable                     = true
-  priority                   = 1
-  name                       = "SABnzbd"
-  host                       = replace(var.sabnzbd_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base                   = "/"
-  port                       = 443
-  use_ssl                    = true
-  api_key                    = var.sabnzbd_credentials.apiKey
-  remove_failed_downloads    = true
-  remove_completed_downloads = true
-  book_category              = "books"
-}
-
 resource "sonarr_download_client_sabnzbd" "sonarr" {
   enable                     = true
   priority                   = 1
@@ -223,18 +201,6 @@ resource "sonarr_download_client_sabnzbd" "sonarr" {
 }
 
 resource "radarr_download_client_rtorrent" "radarr" {
-  enable   = true
-  priority = 1
-  name     = "rTorrent"
-  host     = replace(var.rtorrent_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base = var.rtorrent_credentials.path
-  port     = 443
-  use_ssl  = true
-  username = var.rtorrent_credentials.username
-  password = var.rtorrent_credentials.password
-}
-
-resource "readarr_download_client_rtorrent" "readarr" {
   enable   = true
   priority = 1
   name     = "rTorrent"
@@ -282,27 +248,6 @@ resource "radarr_media_management" "settings" {
   recycle_bin                                 = ""
   rescan_after_refresh                        = "always"
   paths_default_static                        = false
-}
-
-resource "readarr_media_management" "settings" {
-  unmonitor_previous_books    = false
-  hardlinks_copy              = true
-  create_empty_author_folders = true
-  delete_empty_folders        = true
-  watch_ibrary_for_changes    = true
-  import_extra_files          = true
-  set_permissions             = true
-  skip_free_space_check       = false
-  minimum_free_space          = 100
-  recycle_bin_days            = 7
-  chmod_folder                = "755"
-  chown_group                 = ""
-  download_propers_repacks    = "doNotPrefer"
-  allow_fingerprinting        = "never"
-  extra_file_extensions       = "info"
-  file_date                   = "bookReleaseDate"
-  recycle_bin_path            = ""
-  rescan_after_refresh        = "always"
 }
 
 resource "sonarr_media_management" "settings" {
@@ -364,18 +309,6 @@ resource "radarr_root_folder" "movies_anime" {
   path = "/storage/media/Movies (Anime)"
 }
 
-resource "readarr_root_folder" "books" {
-  path                        = "/storage/media/Books"
-  name                        = "Books"
-  default_metadata_profile_id = 1
-  default_quality_profile_id  = 1
-  default_monitor_option      = "all"
-  default_monitor_new_item_option = "all"
-  is_calibre_library          = false
-  # keep "default" if not used
-  output_profile = "default"
-}
-
 resource "sonarr_root_folder" "series" {
   path = "/storage/media/TV Shows"
 }
@@ -422,10 +355,10 @@ resource "sonarr_notification_plex" "sonarr" {
   auth_token = "JMsxCCwG_jHj2ahuyQxV"
 }
 
-resource "radarr_notification_discord" "radarr" {
+resource "radarr_notification_discord" "radarr_incoming" {
   on_grab                          = false
   on_download                      = true
-  on_upgrade                       = true
+  on_upgrade                       = false
   on_rename                        = false
   on_movie_delete                  = false
   on_movie_file_delete             = false
@@ -444,10 +377,32 @@ resource "radarr_notification_discord" "radarr" {
   import_fields = [0, 1, 2, 3, 4, 6, 7, 8, 9, 11, 12]
 }
 
-resource "sonarr_notification_discord" "sonarr" {
+resource "radarr_notification_discord" "radarr_upgrades" {
+  on_grab                          = false
+  on_download                      = false
+  on_upgrade                       = true
+  on_rename                        = false
+  on_movie_delete                  = false
+  on_movie_file_delete             = false
+  on_movie_file_delete_for_upgrade = false
+  on_health_issue                  = false
+  on_application_update            = false
+
+  include_health_warnings = false
+  name                    = "Discord (Upgrades)"
+
+  web_hook_url  = "https://discord.com/api/webhooks/1348387140685533254/CxX5rRox7WxEmTgZ4_G3zDKmwP5RVNZHE368kVvekJRQEK1eUU_eLrlu9CLUo8J2XtQZ"
+  username      = "butler"
+  author        = "Filme"
+  avatar        = "https://radarr.video/img/logo.png"
+  grab_fields   = [0, 1, 2, 3, 5, 6, 8, 9]
+  import_fields = [0, 1, 2, 3, 4, 6, 7, 8, 9, 11, 12]
+}
+
+resource "sonarr_notification_discord" "sonarr_incoming" {
   on_grab                            = false
   on_download                        = true
-  on_upgrade                         = true
+  on_upgrade                         = false
   on_rename                          = false
   on_series_delete                   = false
   on_episode_file_delete             = false
@@ -459,6 +414,28 @@ resource "sonarr_notification_discord" "sonarr" {
   name                    = "Discord (Incoming)"
 
   web_hook_url  = "https://discord.com/api/webhooks/1346141423644446842/Gxd-LK1sH5P_-EhYiY4oYw35af9s3thHPDnKcq4OLUOVsNlCdKhfTtIevVXa5IDz4GN4"
+  username      = "butler"
+  author        = "Serien"
+  avatar        = "https://sonarr.tv/img/logo.png"
+  grab_fields   = [0, 1, 2, 3, 5, 6, 8, 9]
+  import_fields = [0, 1, 2, 3, 4, 6, 7, 8, 9, 11, 12]
+}
+
+resource "sonarr_notification_discord" "sonarr_upgrades" {
+  on_grab                            = false
+  on_download                        = false
+  on_upgrade                         = true
+  on_rename                          = false
+  on_series_delete                   = false
+  on_episode_file_delete             = false
+  on_episode_file_delete_for_upgrade = false
+  on_health_issue                    = false
+  on_application_update              = false
+
+  include_health_warnings = false
+  name                    = "Discord (Upgrades)"
+
+  web_hook_url  = "https://discord.com/api/webhooks/1348387576087838780/1i8PTH2mVqZYulMv5-sMwfiB7FxV2rkTz7T5WvRi0u6qraQyOXNZ8WlPqFbL2XTT3AXx"
   username      = "butler"
   author        = "Serien"
   avatar        = "https://sonarr.tv/img/logo.png"
