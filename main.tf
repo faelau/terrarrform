@@ -355,31 +355,9 @@ resource "sonarr_notification_plex" "sonarr" {
   auth_token = "JMsxCCwG_jHj2ahuyQxV"
 }
 
-resource "radarr_notification_discord" "radarr_incoming" {
+resource "radarr_notification_discord" "radarr_incoming_upgrade" {
   on_grab                          = false
   on_download                      = true
-  on_upgrade                       = false
-  on_rename                        = false
-  on_movie_delete                  = false
-  on_movie_file_delete             = false
-  on_movie_file_delete_for_upgrade = false
-  on_health_issue                  = false
-  on_application_update            = false
-
-  include_health_warnings = false
-  name                    = "Discord (Incoming)"
-
-  web_hook_url  = "https://discord.com/api/webhooks/1346139699005227019/CZBLY28-lliBwHkLtwZ4ESpH7LSsM1HqM1Wm2N160lETtW-r-V5ZAvDYKVpTjh5an-vL"
-  username      = "butler"
-  author        = "Filme"
-  avatar        = "https://radarr.video/img/logo.png"
-  grab_fields   = [0, 1, 2, 3, 5, 6, 8, 9]
-  import_fields = [0, 1, 2, 3, 4, 6, 7, 8, 9, 11, 12]
-}
-
-resource "radarr_notification_discord" "radarr_upgrades" {
-  on_grab                          = false
-  on_download                      = false
   on_upgrade                       = true
   on_rename                        = false
   on_movie_delete                  = false
@@ -389,9 +367,9 @@ resource "radarr_notification_discord" "radarr_upgrades" {
   on_application_update            = false
 
   include_health_warnings = false
-  name                    = "Discord (Upgrades)"
+  name                    = "Discord (Incoming & Upgrades)"
 
-  web_hook_url  = "https://discord.com/api/webhooks/1348387140685533254/CxX5rRox7WxEmTgZ4_G3zDKmwP5RVNZHE368kVvekJRQEK1eUU_eLrlu9CLUo8J2XtQZ"
+  web_hook_url  = "https://discord.com/api/webhooks/1346139699005227019/CZBLY28-lliBwHkLtwZ4ESpH7LSsM1HqM1Wm2N160lETtW-r-V5ZAvDYKVpTjh5an-vL"
   username      = "butler"
   author        = "Filme"
   avatar        = "https://radarr.video/img/logo.png"
@@ -399,31 +377,9 @@ resource "radarr_notification_discord" "radarr_upgrades" {
   import_fields = [0, 1, 2, 3, 4, 6, 7, 8, 9, 11, 12]
 }
 
-resource "sonarr_notification_discord" "sonarr_incoming" {
+resource "sonarr_notification_discord" "sonarr_incoming_upgrade" {
   on_grab                            = false
   on_download                        = true
-  on_upgrade                         = false
-  on_rename                          = false
-  on_series_delete                   = false
-  on_episode_file_delete             = false
-  on_episode_file_delete_for_upgrade = false
-  on_health_issue                    = false
-  on_application_update              = false
-
-  include_health_warnings = false
-  name                    = "Discord (Incoming)"
-
-  web_hook_url  = "https://discord.com/api/webhooks/1346141423644446842/Gxd-LK1sH5P_-EhYiY4oYw35af9s3thHPDnKcq4OLUOVsNlCdKhfTtIevVXa5IDz4GN4"
-  username      = "butler"
-  author        = "Serien"
-  avatar        = "https://sonarr.tv/img/logo.png"
-  grab_fields   = [0, 1, 2, 3, 5, 6, 8, 9]
-  import_fields = [0, 1, 2, 3, 4, 6, 7, 8, 9, 11, 12]
-}
-
-resource "sonarr_notification_discord" "sonarr_upgrades" {
-  on_grab                            = false
-  on_download                        = false
   on_upgrade                         = true
   on_rename                          = false
   on_series_delete                   = false
@@ -433,9 +389,9 @@ resource "sonarr_notification_discord" "sonarr_upgrades" {
   on_application_update              = false
 
   include_health_warnings = false
-  name                    = "Discord (Upgrades)"
+  name                    = "Discord (Incoming & Upgrades)"
 
-  web_hook_url  = "https://discord.com/api/webhooks/1348387576087838780/1i8PTH2mVqZYulMv5-sMwfiB7FxV2rkTz7T5WvRi0u6qraQyOXNZ8WlPqFbL2XTT3AXx"
+  web_hook_url  = "https://discord.com/api/webhooks/1346141423644446842/Gxd-LK1sH5P_-EhYiY4oYw35af9s3thHPDnKcq4OLUOVsNlCdKhfTtIevVXa5IDz4GN4"
   username      = "butler"
   author        = "Serien"
   avatar        = "https://sonarr.tv/img/logo.png"
