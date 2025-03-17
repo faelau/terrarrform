@@ -18,7 +18,7 @@ variable "readarr_credentials" {
   type = object({ url = string, apiKey = string })
   default = {
     url    = "https://readarr.laura.services"
-    apiKey = "c492c139d38446fabd46246145eda130"
+    apiKey = "a47d96aa96934a48ab6fc0d2f9e6b833"
   }
 }
 
