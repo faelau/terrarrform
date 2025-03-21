@@ -1,3 +1,11 @@
+variable "lazylibrarian_credentials" {
+  type = object({ url = string, apiKey = string })
+  default = {
+    url    = "https://lazylibrarian.laura.services"
+    apiKey = "c4e0d9bf68de30c3a113d0b1facd27af"
+  }
+}
+
 variable "lidarr_credentials" {
   type = object({ url = string, apiKey = string })
   default = {
@@ -19,14 +27,6 @@ variable "radarr_credentials" {
   default = {
     url    = "https://radarr.laura.services"
     apiKey = "9fa54d4701ec401e82a2aa8abdb0a7d8"
-  }
-}
-
-variable "readarr_credentials" {
-  type = object({ url = string, apiKey = string })
-  default = {
-    url    = "https://readarr.laura.services"
-    apiKey = "a47d96aa96934a48ab6fc0d2f9e6b833"
   }
 }
 

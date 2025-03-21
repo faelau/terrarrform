@@ -158,6 +158,14 @@ resource "prowlarr_indexer" "usenet-crawler_com" {
 # APPLICATIONS
 # ---------------------------------------------------------------------------------------------------------------------
 
+resource "prowlarr_application_lazy_librarian" "lazylibrarian" {
+  name = "lazylibrarian.laura.services"
+  sync_level = "fullSync"
+  base_url = "https://lazylibrarian-princessdomino.venom.mygiga.cloud"
+  prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
+  api_key = var.lazylibrarian_credentials.apiKey
+}
+
 resource "prowlarr_application_lidarr" "lidarr" {
   name         = "lidarr.laura.services"
   sync_level   = "fullSync"
@@ -172,14 +180,6 @@ resource "prowlarr_application_radarr" "radarr" {
   base_url     = "https://radarr-princessdomino.venom.mygiga.cloud"
   prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
   api_key      = var.radarr_credentials.apiKey
-}
-
-resource "prowlarr_application_readarr" "readarr" {
-  name         = "readarr.laura.services"
-  sync_level   = "fullSync"
-  base_url     = "https://readarr-princessdomino.venom.mygiga.cloud"
-  prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
-  api_key      = var.readarr_credentials.apiKey
 }
 
 resource "prowlarr_application_sonarr" "sonarr" {
@@ -216,20 +216,6 @@ resource "radarr_download_client_sabnzbd" "radarr" {
   remove_completed_downloads = true
 }
 
-resource "readarr_download_client_sabnzbd" "readarr" {
-  enable                     = true
-  priority                   = 1
-  name                       = "SABnzbd"
-  host                       = replace(var.sabnzbd_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base                   = "/"
-  port                       = 443
-  use_ssl                    = true
-  api_key                    = var.sabnzbd_credentials.apiKey
-  remove_failed_downloads    = true
-  remove_completed_downloads = true
-  book_category              = "books"
-}
-
 resource "sonarr_download_client_sabnzbd" "sonarr" {
   enable                     = true
   priority                   = 1
@@ -256,18 +242,6 @@ resource "lidarr_download_client_rtorrent" "lidarr" {
 }
 
 resource "radarr_download_client_rtorrent" "radarr" {
-  enable   = true
-  priority = 1
-  name     = "rTorrent"
-  host     = replace(var.rtorrent_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base = var.rtorrent_credentials.path
-  port     = 443
-  use_ssl  = true
-  username = var.rtorrent_credentials.username
-  password = var.rtorrent_credentials.password
-}
-
-resource "readarr_download_client_rtorrent" "readarr" {
   enable   = true
   priority = 1
   name     = "rTorrent"
@@ -350,27 +324,6 @@ resource "radarr_media_management" "settings" {
   paths_default_static                        = false
 }
 
-resource "readarr_media_management" "settings" {
-  unmonitor_previous_books    = false
-  hardlinks_copy              = true
-  create_empty_author_folders = true
-  delete_empty_folders        = true
-  watch_ibrary_for_changes    = true
-  import_extra_files          = true
-  set_permissions             = true
-  skip_free_space_check       = false
-  minimum_free_space          = 100
-  recycle_bin_days            = 7
-  chmod_folder                = "755"
-  chown_group                 = ""
-  download_propers_repacks    = "doNotPrefer"
-  allow_fingerprinting        = "never"
-  extra_file_extensions       = "info"
-  file_date                   = "bookReleaseDate"
-  recycle_bin_path            = ""
-  rescan_after_refresh        = "always"
-}
-
 resource "sonarr_media_management" "settings" {
   unmonitor_previous_episodes = false
   hardlinks_copy              = true
@@ -396,7 +349,7 @@ resource "sonarr_media_management" "settings" {
 # PROFILES
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "lidarr_metadata_profile" "Extended" {
+resource "lidarr_metadata_profile" "extended" {
   name                  = "Extended"
   primary_album_types   = [0, 1, 2]
   secondary_album_types = [0, 2]
@@ -439,18 +392,6 @@ resource "radarr_root_folder" "movies" {
 
 resource "radarr_root_folder" "movies_anime" {
   path = "/storage/media/Movies (Anime)"
-}
-
-resource "readarr_root_folder" "books" {
-  path                            = "/storage/media/Books"
-  name                            = "Books"
-  default_metadata_profile_id     = 1
-  default_quality_profile_id      = 1
-  default_monitor_option          = "all"
-  default_monitor_new_item_option = "all"
-  is_calibre_library              = false
-  # keep "default" if not used
-  output_profile = "default"
 }
 
 resource "sonarr_root_folder" "series" {

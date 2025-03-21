@@ -74,3 +74,62 @@ sonarr:
         assign_scores_to:
           - name: WEB-1080p
 ```
+
+## lazylibrarian
+
+```
+[GENERAL]
+homepage = Authors
+auth_type = FORM
+config_tab_num = 5
+imp_preflang = German, de, de-DE, deu
+ebook_dir = /storage/media/Books
+audio_dir = /storage/media/Books
+download_dir = /storage/downloads/lazylibrarian
+
+[WEBSERVER]
+http_user = princessdomino
+http_pass = oiFbgU-GJYwCP2V
+
+[LOGGING]
+logdir = /config/Logs
+
+[TELEMETRY]
+server_id = 9ee1aa3a1ac343b6917e0c50b7df1512
+
+[GIT]
+install_type = source DOCKER
+current_version = 58460d1ab3c51661e38c80d6683f1c162976692f
+latest_version = UNKNOWN INSTALL
+commits_behind = -1
+
+[SABNZBD]
+sab_host = https://sabnzbd.laura.services
+sab_port = 443
+sab_api = Nn34sHOH7kPMkvdx3h2ciy6KhHR11gZK
+sab_cat = books
+
+[USENET]
+nzb_downloader_sabnzbd = True
+
+[TORRENT]
+tor_downloader_rtorrent = True
+prefer_magnet = False
+
+[RTORRENT]
+rtorrent_host = https://rtorrent-princessdomino.venom.mygiga.cloud/rt/plugins/httprpc/action.php
+rtorrent_user = princessdomino
+rtorrent_pass = oiFbgU-GJYwCP2V
+rtorrent_label = lazylibrarian
+
+[POSTPROCESS]
+audiobook_dest_folder = $Author/$Title
+del_completed = False
+
+[PROWL]
+prowl_priority = -2
+
+[API]
+book_api = HardCover
+hc_api = Bearer eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJIYXJkY292ZXIiLCJ2ZXJzaW9uIjoiOCIsImp0aSI6ImViMDRhMjBjLWRkMTYtNDQ1OC1iNWI5LWUzMmQ1MjhlYTY3YyIsImFwcGxpY2F0aW9uSWQiOjIsInN1YiI6IjI0MDgwIiwiYXVkIjoiMSIsImlkIjoiMjQwODAiLCJsb2dnZWRJbiI6dHJ1ZSwiaWF0IjoxNzQyNTc3MjY4LCJleHAiOjE3NzQxMTMyNjgsImh0dHBzOi8vaGFzdXJhLmlvL2p3dC9jbGFpbXMiOnsieC1oYXN1cmEtYWxsb3dlZC1yb2xlcyI6WyJ1c2VyIl0sIngtaGFzdXJhLWRlZmF1bHQtcm9sZSI6InVzZXIiLCJ4LWhhc3VyYS1yb2xlIjoidXNlciIsIlgtaGFzdXJhLXVzZXItaWQiOiIyNDA4MCJ9LCJ1c2VyIjp7ImlkIjoyNDA4MH19.DrYRQ4iyYshY5QjUL-ABepOjJbijw96sIi49XdCbFpY
+```
