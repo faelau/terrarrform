@@ -1,3 +1,11 @@
+variable "lidarr_credentials" {
+  type = object({ url = string, apiKey = string })
+  default = {
+    url    = "https://lidarr.laura.services"
+    apiKey = "f457b8d3decf4f9fbd0265f95ba38498"
+  }
+}
+
 variable "prowlarr_credentials" {
   type = object({ url = string, apiKey = string })
   default = {

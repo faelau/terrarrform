@@ -158,6 +158,14 @@ resource "prowlarr_indexer" "usenet-crawler_com" {
 # APPLICATIONS
 # ---------------------------------------------------------------------------------------------------------------------
 
+resource "prowlarr_application_lidarr" "lidarr" {
+  name         = "lidarr.laura.services"
+  sync_level   = "fullSync"
+  base_url     = "https://lidarr-princessdomino.venom.mygiga.cloud"
+  prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
+  api_key      = var.lidarr_credentials.apiKey
+}
+
 resource "prowlarr_application_radarr" "radarr" {
   name         = "radarr.laura.services"
   sync_level   = "fullSync"
@@ -182,6 +190,19 @@ resource "prowlarr_application_sonarr" "sonarr" {
   api_key      = var.sonarr_credentials.apiKey
 }
 
+resource "lidarr_download_client_sabnzbd" "lidarr" {
+  enable                     = true
+  priority                   = 1
+  name                       = "SABnzbd"
+  host                       = replace(var.sabnzbd_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base                   = "/"
+  port                       = 443
+  use_ssl                    = true
+  api_key                    = var.sabnzbd_credentials.apiKey
+  remove_failed_downloads    = true
+  remove_completed_downloads = true
+}
+
 resource "radarr_download_client_sabnzbd" "radarr" {
   enable                     = true
   priority                   = 1
@@ -195,6 +216,20 @@ resource "radarr_download_client_sabnzbd" "radarr" {
   remove_completed_downloads = true
 }
 
+resource "readarr_download_client_sabnzbd" "readarr" {
+  enable                     = true
+  priority                   = 1
+  name                       = "SABnzbd"
+  host                       = replace(var.sabnzbd_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base                   = "/"
+  port                       = 443
+  use_ssl                    = true
+  api_key                    = var.sabnzbd_credentials.apiKey
+  remove_failed_downloads    = true
+  remove_completed_downloads = true
+  book_category              = "books"
+}
+
 resource "sonarr_download_client_sabnzbd" "sonarr" {
   enable                     = true
   priority                   = 1
@@ -206,6 +241,18 @@ resource "sonarr_download_client_sabnzbd" "sonarr" {
   api_key                    = var.sabnzbd_credentials.apiKey
   remove_failed_downloads    = true
   remove_completed_downloads = true
+}
+
+resource "lidarr_download_client_rtorrent" "lidarr" {
+  enable   = true
+  priority = 1
+  name     = "rTorrent"
+  host     = replace(var.rtorrent_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base = var.rtorrent_credentials.path
+  port     = 443
+  use_ssl  = true
+  username = var.rtorrent_credentials.username
+  password = var.rtorrent_credentials.password
 }
 
 resource "radarr_download_client_rtorrent" "radarr" {
@@ -230,20 +277,6 @@ resource "readarr_download_client_rtorrent" "readarr" {
   use_ssl  = true
   username = var.rtorrent_credentials.username
   password = var.rtorrent_credentials.password
-}
-
-resource "readarr_download_client_sabnzbd" "readarr" {
-  enable                     = true
-  priority                   = 1
-  name                       = "SABnzbd"
-  host                       = replace(var.sabnzbd_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base                   = "/"
-  port                       = 443
-  use_ssl                    = true
-  api_key                    = var.sabnzbd_credentials.apiKey
-  remove_failed_downloads    = true
-  remove_completed_downloads = true
-  book_category              = "books"
 }
 
 resource "sonarr_download_client_rtorrent" "sonarr" {
@@ -273,6 +306,27 @@ resource "sonarr_metadata" "plex" {
 # ---------------------------------------------------------------------------------------------------------------------
 # MEDIA MANAGEMENT
 # ---------------------------------------------------------------------------------------------------------------------
+
+resource "lidarr_media_management" "settings" {
+  unmonitor_previous_tracks = false
+  hardlinks_copy            = true
+  create_empty_folders      = true
+  delete_empty_folders      = true
+  watch_library_for_changes = true
+  import_extra_files        = true
+  set_permissions           = true
+  skip_free_space_check     = false
+  minimum_free_space        = 100
+  recycle_bin_days          = 7
+  chmod_folder              = "755"
+  chown_group               = ""
+  download_propers_repacks  = "preferAndUpgrade"
+  allow_fingerprinting      = "never"
+  extra_file_extensions     = "info"
+  file_date                 = "none"
+  recycle_bin_path          = ""
+  rescan_after_refresh      = "always"
+}
 
 resource "radarr_media_management" "settings" {
   auto_rename_folders                         = true
@@ -342,6 +396,13 @@ resource "sonarr_media_management" "settings" {
 # PROFILES
 # ---------------------------------------------------------------------------------------------------------------------
 
+resource "lidarr_metadata_profile" "Extended" {
+  name                  = "Extended"
+  primary_album_types   = [0, 1, 2]
+  secondary_album_types = [0, 2]
+  release_statuses      = [0]
+}
+
 resource "radarr_quality_definition" "bluray_1080p" {
   id             = 22
   title          = "Bluray-1080p"
@@ -358,15 +419,19 @@ resource "sonarr_quality_definition" "bluray_1080p" {
   max_size       = 1000
 }
 
-data "radarr_quality_definitions" "all" {
-}
-
-data "sonarr_quality_definitions" "all" {
-}
-
 # ---------------------------------------------------------------------------------------------------------------------
 # ROOT FOLDERS
 # ---------------------------------------------------------------------------------------------------------------------
+
+resource "lidarr_root_folder" "music" {
+  name                    = "Music"
+  quality_profile_id      = 3
+  metadata_profile_id     = 1
+  monitor_option          = "future"
+  new_item_monitor_option = "all"
+  path                    = "/storage/media/Music"
+  tags                    = [1]
+}
 
 resource "radarr_root_folder" "movies" {
   path = "/storage/media/Movies"

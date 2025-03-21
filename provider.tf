@@ -1,5 +1,9 @@
 terraform {
   required_providers {
+    lidarr = {
+      source = "devopsarr/lidarr"
+      version = "1.13.0"
+    }
     prowlarr = {
       source = "devopsarr/prowlarr"
       version = "3.0.2"
@@ -17,6 +21,11 @@ terraform {
       version = "3.4.0"
     }
   }
+}
+
+provider "lidarr" {
+  url     = var.lidarr_credentials.url
+  api_key = var.lidarr_credentials.apiKey
 }
 
 provider "prowlarr" {
