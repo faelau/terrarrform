@@ -158,14 +158,6 @@ resource "prowlarr_indexer" "usenet-crawler_com" {
 # APPLICATIONS
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "prowlarr_application_lazy_librarian" "lazylibrarian" {
-  name = "lazylibrarian.laura.services"
-  sync_level = "fullSync"
-  base_url = "https://lazylibrarian-princessdomino.venom.mygiga.cloud"
-  prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
-  api_key = var.lazylibrarian_credentials.apiKey
-}
-
 resource "prowlarr_application_lidarr" "lidarr" {
   name         = "lidarr.laura.services"
   sync_level   = "fullSync"
@@ -180,6 +172,14 @@ resource "prowlarr_application_radarr" "radarr" {
   base_url     = "https://radarr-princessdomino.venom.mygiga.cloud"
   prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
   api_key      = var.radarr_credentials.apiKey
+}
+
+resource "prowlarr_application_readarr" "readarr" {
+  name         = "readarr.laura.services"
+  sync_level   = "fullSync"
+  base_url     = "https://readarr-princessdomino.venom.mygiga.cloud"
+  prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
+  api_key      = var.readarr_credentials.apiKey
 }
 
 resource "prowlarr_application_sonarr" "sonarr" {
@@ -216,6 +216,20 @@ resource "radarr_download_client_sabnzbd" "radarr" {
   remove_completed_downloads = true
 }
 
+resource "readarr_download_client_sabnzbd" "readarr" {
+  enable                     = true
+  priority                   = 1
+  name                       = "SABnzbd"
+  host                       = replace(var.sabnzbd_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base                   = "/"
+  port                       = 443
+  use_ssl                    = true
+  api_key                    = var.sabnzbd_credentials.apiKey
+  remove_failed_downloads    = true
+  remove_completed_downloads = true
+  book_category              = "books"
+}
+
 resource "sonarr_download_client_sabnzbd" "sonarr" {
   enable                     = true
   priority                   = 1
@@ -242,6 +256,19 @@ resource "lidarr_download_client_rtorrent" "lidarr" {
 }
 
 resource "radarr_download_client_rtorrent" "radarr" {
+  enable         = true
+  priority       = 1
+  name           = "rTorrent"
+  host           = replace(var.rtorrent_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base       = var.rtorrent_credentials.path
+  port           = 443
+  use_ssl        = true
+  username       = var.rtorrent_credentials.username
+  password       = var.rtorrent_credentials.password
+  movie_category = "radarr"
+}
+
+resource "readarr_download_client_rtorrent" "readarr" {
   enable   = true
   priority = 1
   name     = "rTorrent"
@@ -254,15 +281,16 @@ resource "radarr_download_client_rtorrent" "radarr" {
 }
 
 resource "sonarr_download_client_rtorrent" "sonarr" {
-  enable   = true
-  priority = 1
-  name     = "rTorrent"
-  host     = replace(var.rtorrent_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base = var.rtorrent_credentials.path
-  port     = 443
-  use_ssl  = true
-  username = var.rtorrent_credentials.username
-  password = var.rtorrent_credentials.password
+  enable      = true
+  priority    = 1
+  name        = "rTorrent"
+  host        = replace(var.rtorrent_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base    = var.rtorrent_credentials.path
+  port        = 443
+  use_ssl     = true
+  username    = var.rtorrent_credentials.username
+  password    = var.rtorrent_credentials.password
+  tv_category = "sonarr"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
@@ -324,6 +352,27 @@ resource "radarr_media_management" "settings" {
   paths_default_static                        = false
 }
 
+resource "readarr_media_management" "settings" {
+  unmonitor_previous_books    = false
+  hardlinks_copy              = true
+  create_empty_author_folders = true
+  delete_empty_folders        = true
+  watch_ibrary_for_changes    = true
+  import_extra_files          = true
+  set_permissions             = true
+  skip_free_space_check       = false
+  minimum_free_space          = 100
+  recycle_bin_days            = 7
+  chmod_folder                = "755"
+  chown_group                 = ""
+  download_propers_repacks    = "doNotPrefer"
+  allow_fingerprinting        = "allFiles"
+  extra_file_extensions       = "info"
+  file_date                   = "bookReleaseDate"
+  recycle_bin_path            = ""
+  rescan_after_refresh        = "always"
+}
+
 resource "sonarr_media_management" "settings" {
   unmonitor_previous_episodes = false
   hardlinks_copy              = true
@@ -364,6 +413,49 @@ resource "radarr_quality_definition" "bluray_1080p" {
   max_size       = 2000
 }
 
+resource "readarr_metadata_profile" "standard" {
+  name                  = "Standard"
+  allowed_languages     = "deu"
+  min_popularity        = 25
+  min_pages             = 100
+  skip_missing_date     = true
+  skip_missing_isbn     = true
+  skip_parts_and_sets   = true
+  skip_series_secondary = false
+  ignored               = ["Leseprobe"]
+}
+
+resource "readarr_naming" "settings" {
+  rename_books               = true
+  replace_illegal_characters = true
+  colon_replacement_format   = 0
+  author_folder_format       = "{Author Name}"
+  standard_book_format       = "{Book Title}/{Author Name} - {Book Title}{ (PartNumber)}"
+}
+
+resource "readarr_quality_profile" "ebook" {
+  name            = "eBook"
+  upgrade_allowed = true
+  cutoff          = 1100
+
+  quality_groups = [
+    {
+      id   = 1100
+      name = "Native"
+      qualities = [
+        {
+          id   = 3
+          name = "EPUB"
+        },
+        {
+          id   = 2
+          name = "MOBI"
+        }
+      ]
+    }
+  ]
+}
+
 resource "sonarr_quality_definition" "bluray_1080p" {
   id             = 16
   title          = "Bluray-1080p"
@@ -392,6 +484,18 @@ resource "radarr_root_folder" "movies" {
 
 resource "radarr_root_folder" "movies_anime" {
   path = "/storage/media/Movies (Anime)"
+}
+
+resource "readarr_root_folder" "books" {
+  path                            = "/storage/media/Books"
+  name                            = "Books"
+  default_metadata_profile_id     = 1
+  default_quality_profile_id      = 1
+  default_monitor_option          = "all"
+  default_monitor_new_item_option = "all"
+  is_calibre_library              = false
+  # keep "default" if not used
+  output_profile = "default"
 }
 
 resource "sonarr_root_folder" "series" {
