@@ -1,5 +1,129 @@
 # terrarrform
 
+## `crownpixie`
+
+```
+[GENERAL]
+user_accounts = True
+homepage = Authors
+auth_type = FORM
+match_ratio = 75
+bookstrap_theme = superhero
+config_tab_num = 5
+imp_preflang = ger, de, de-DE
+ebook_dir = /storage/media/Books
+audio_dir = /storage/media/Books
+download_dir = /storage
+ebook_type = epub, mobi
+
+[API]
+api_enabled = True
+api_key = 9ca4e9831ed7305516ffaf8ad7d53675
+book_api = GoodReads
+
+[WEBSERVER]
+http_user = crownpixie
+http_pass = ZcG7tXrdr8t8aLT
+
+[LOGGING]
+logdir = /config/Logs
+
+[TELEMETRY]
+server_id = 0862eb9850974d4da164b2ce86714bfc
+
+[GIT]
+install_type = source DOCKER
+current_version = 58460d1ab3c51661e38c80d6683f1c162976692f
+latest_version = UNKNOWN INSTALL
+commits_behind = -1
+
+[SABNZBD]
+sab_host = https://sabnzbd-crownpixie.wolverine.mygiga.cloud
+sab_port = 443
+sab_api = WGyW1ZI6lBPK8uvh7RdXhmpIggb8Xpn0
+
+[USENET]
+nzb_downloader_sabnzbd = True
+
+[LIBRARYSCAN]
+no_future = True
+
+[POSTPROCESS]
+audiobook_dest_folder = $Author/$Title
+
+[MAGAZINES]
+reject_maxsize = 32
+
+[PROWL]
+prowl_priority = -2
+
+[Newznab_0]
+comiccat = 107000
+
+[Newznab_1]
+dispname = NZBgeek (Prowlarr)
+enabled = True
+host = https://prowlarr-princessdomino.venom.mygiga.cloud/13/api
+api = c772cf2fa6fa465dbe4cb7528f2d61a5
+generalsearch = search
+bookcat = 107000
+magcat = 107000
+audiocat = 103000
+comiccat = 107000
+updated = 2025-03-30
+dlpriority = 26
+
+[Newznab_2]
+dispname = SceneNZBs (Prowlarr)
+enabled = True
+host = https://prowlarr-princessdomino.venom.mygiga.cloud/14/api
+api = c772cf2fa6fa465dbe4cb7528f2d61a5
+generalsearch = search
+bookcat = 107000
+magcat = 107000
+audiocat = 103000
+comiccat = 107000
+updated = 2025-03-30
+dlpriority = 26
+
+[Newznab_3]
+dispname = usenet-crawler (Prowlarr)
+enabled = True
+host = https://prowlarr-princessdomino.venom.mygiga.cloud/15/api
+api = c772cf2fa6fa465dbe4cb7528f2d61a5
+generalsearch = search
+bookcat = 107000
+magcat = 107000
+audiocat = 103000
+comiccat = 107000
+updated = 2025-03-30
+dlpriority = 26
+
+[Newznab_4]
+dispname = Nzb.su (Prowlarr)
+enabled = True
+host = https://prowlarr-princessdomino.venom.mygiga.cloud/9/api
+api = c772cf2fa6fa465dbe4cb7528f2d61a5
+generalsearch = search
+bookcat = 107000
+magcat = 107000
+comiccat = 107000
+updated = 2025-03-30
+dlpriority = 26
+
+[GEN_0]
+dispname = Genesis Library
+enabled = True
+host = libgen.is
+search = search.php
+
+[GEN_1]
+dispname = Genesis Library (Mirror)
+enabled = True
+host = libgen.st
+search = search.php
+```
+
 ## `princessdomino`
 
 ### `recyclarr`

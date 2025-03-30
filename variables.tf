@@ -22,6 +22,14 @@ variable "radarr_credentials" {
   }
 }
 
+variable "readarr_credentials" {
+  type = object({ url = string, apiKey = string })
+  default = {
+    url    = "https://readarr-crownpixie.wolverine.mygiga.cloud"
+    apiKey = "2c30fc4d3f05476db27ed0ec355eb77d"
+  }
+}
+
 variable "sonarr_credentials" {
   type = object({ url = string, apiKey = string })
   default = {
@@ -52,7 +60,7 @@ variable "rtorrent_crownpixie_credentials" {
     url      = "rtorrent-crownpixie.wolverine.mygiga.cloud"
     path     = "/rtrpc/"
     username = "crownpixie"
-    password = "XdSUnq8M4fhgMvf"
+    password = "ZcG7tXrdr8t8aLT"
   }
 }
 

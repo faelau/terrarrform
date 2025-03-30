@@ -2,6 +2,64 @@
 # INDEXERS
 # ---------------------------------------------------------------------------------------------------------------------
 
+resource "prowlarr_indexer" "myanonamouse" {
+  enable          = false
+  name            = "MyAnonamouse"
+  implementation  = "MyAnonamouse"
+  config_contract = "MyAnonamouseSettings"
+  protocol        = "torrent"
+  priority        = 25
+  app_profile_id  = 2
+  fields = [
+    {
+      "name" : "baseUrl",
+      "text_value" : "https://www.myanonamouse.net/",
+    },
+    {
+      "name" : "searchInDescription",
+      "bool_value" : false,
+    },
+    {
+      "name" : "searchInFilenames",
+      "bool_value" : false,
+    },
+    {
+      "name" : "searchInSeries",
+      "bool_value" : false,
+    },
+    {
+      "name" : "torrentBaseSettings.preferMagnetUrl",
+      "bool_value" : false,
+    },
+    {
+      "name" : "baseSettings.grabLimit",
+      "number_value" : 5,
+    },
+    {
+      "name" : "baseSettings.limitsUnit",
+      "number_value" : 0,
+    },
+    {
+      "name" : "searchLanguages",
+      "set_value" : [
+        37
+      ],
+    },
+    {
+      "name" : "searchType",
+      "number_value" : 0,
+    },
+    {
+      "name" : "useFreeleechWedge",
+      "number_value" : 0,
+    },
+    {
+      "name" : "mamId",
+      "text_value" : "FiEbJt6LutfeUu_-SraG2cL_pC5bWQT4x4CSxzQsRqyU-Hj3Fn0ImiDcXzKPNc_g9Lzp37qAOZA3B-drcD2c_LcvCsrhs8jEzjI1gF6ZyP6jw_QHNCrJvxKE7jecKLUf9RGNW3u8VrTEbrAB7S_ONlufWpEn5aJfQZm__atR_zY8Y2KVFtkA8BuiFT1j707a4-SAj4sv1Dzm9cATN6D28yREkH1c7JQvht6dbkUfiCZrzT3ImucdZQfJa5ywpOr0nE2Sat9SRgcDowOk7zETlvr3Xcvdr3mX3K_v"
+    },
+  ]
+}
+
 resource "prowlarr_indexer" "nzb_su" {
   enable          = true
   name            = "Nzb.su"
@@ -174,13 +232,13 @@ resource "prowlarr_application_radarr" "radarr" {
   api_key      = var.radarr_credentials.apiKey
 }
 
-/* resource "prowlarr_application_readarr" "readarr" {
+resource "prowlarr_application_readarr" "readarr" {
   name         = "readarr.laura.services"
   sync_level   = "fullSync"
-  base_url     = "https://readarr-princessdomino.venom.mygiga.cloud"
+  base_url     = "https://readarr-crownpixie.wolverine.mygiga.cloud"
   prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
   api_key      = var.readarr_credentials.apiKey
-} */
+}
 
 resource "prowlarr_application_sonarr" "sonarr" {
   name         = "sonarr.laura.services"
@@ -216,19 +274,19 @@ resource "radarr_download_client_sabnzbd" "radarr" {
   remove_completed_downloads = true
 }
 
-/* resource "readarr_download_client_sabnzbd" "readarr" {
+resource "readarr_download_client_sabnzbd" "readarr" {
   enable                     = true
   priority                   = 1
   name                       = "SABnzbd"
-  host                       = replace(var.sabnzbd_princessdomino_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  host                       = replace(var.sabnzbd_crownpixie_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
   url_base                   = "/"
   port                       = 443
   use_ssl                    = true
-  api_key                    = var.sabnzbd_princessdomino_credentials.apiKey
+  api_key                    = var.sabnzbd_crownpixie_credentials.apiKey
   remove_failed_downloads    = true
   remove_completed_downloads = true
   book_category              = "books"
-} */
+}
 
 resource "sonarr_download_client_sabnzbd" "sonarr" {
   enable                     = true
@@ -244,15 +302,15 @@ resource "sonarr_download_client_sabnzbd" "sonarr" {
 }
 
 resource "lidarr_download_client_rtorrent" "lidarr" {
-  enable   = true
-  priority = 1
-  name     = "rTorrent"
-  host     = replace(var.rtorrent_crownpixie_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base = var.rtorrent_crownpixie_credentials.path
-  port     = 443
-  use_ssl  = true
-  username = var.rtorrent_crownpixie_credentials.username
-  password = var.rtorrent_crownpixie_credentials.password
+  enable         = true
+  priority       = 1
+  name           = "rTorrent"
+  host           = replace(var.rtorrent_crownpixie_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base       = var.rtorrent_crownpixie_credentials.path
+  port           = 443
+  use_ssl        = true
+  username       = var.rtorrent_crownpixie_credentials.username
+  password       = var.rtorrent_crownpixie_credentials.password
   music_category = "lidarr"
 }
 
@@ -358,7 +416,7 @@ resource "radarr_media_management" "settings" {
   paths_default_static                        = false
 }
 
-/* resource "readarr_media_management" "settings" {
+resource "readarr_media_management" "settings" {
   unmonitor_previous_books    = false
   hardlinks_copy              = true
   create_empty_author_folders = true
@@ -377,7 +435,7 @@ resource "radarr_media_management" "settings" {
   file_date                   = "bookReleaseDate"
   recycle_bin_path            = ""
   rescan_after_refresh        = "always"
-} */
+}
 
 resource "sonarr_media_management" "settings" {
   unmonitor_previous_episodes = false
@@ -526,7 +584,7 @@ resource "radarr_quality_definition" "bluray_1080p" {
   max_size       = 2000
 }
 
-/* resource "readarr_metadata_profile" "standard" {
+resource "readarr_metadata_profile" "standard" {
   name                  = "Standard"
   allowed_languages     = "deu"
   min_popularity        = 25
@@ -536,17 +594,17 @@ resource "radarr_quality_definition" "bluray_1080p" {
   skip_parts_and_sets   = true
   skip_series_secondary = false
   ignored               = ["Leseprobe"]
-} */
+}
 
-/* resource "readarr_naming" "settings" {
+resource "readarr_naming" "settings" {
   rename_books               = true
   replace_illegal_characters = true
   colon_replacement_format   = 0
   author_folder_format       = "{Author Name}"
   standard_book_format       = "{Book Title}/{Author Name} - {Book Title}{ (PartNumber)}"
-} */
+}
 
-/* resource "readarr_quality_profile" "ebook" {
+resource "readarr_quality_profile" "ebook" {
   name            = "eBook"
   upgrade_allowed = true
   cutoff          = 1100
@@ -567,7 +625,7 @@ resource "radarr_quality_definition" "bluray_1080p" {
       ]
     }
   ]
-} */
+}
 
 resource "sonarr_quality_definition" "bluray_1080p" {
   id             = 16
@@ -599,17 +657,17 @@ resource "radarr_root_folder" "movies_anime" {
   path = "/storage/media/Movies (Anime)"
 }
 
-/* resource "readarr_root_folder" "books" {
+resource "readarr_root_folder" "books" {
   path                            = "/storage/media/Books"
   name                            = "Books"
-  default_metadata_profile_id     = 1
-  default_quality_profile_id      = 1
+  default_metadata_profile_id     = readarr_metadata_profile.standard.id
+  default_quality_profile_id      = readarr_quality_profile.ebook.id
   default_monitor_option          = "all"
   default_monitor_new_item_option = "all"
   is_calibre_library              = false
   # keep "default" if not used
   output_profile = "default"
-} */
+}
 
 resource "sonarr_root_folder" "series" {
   path = "/storage/media/TV Shows"
