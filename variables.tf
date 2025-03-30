@@ -1,8 +1,8 @@
 variable "lidarr_credentials" {
   type = object({ url = string, apiKey = string })
   default = {
-    url    = "https://lidarr.laura.services"
-    apiKey = "f457b8d3decf4f9fbd0265f95ba38498"
+    url    = "https://lidarr.princessia.org"
+    apiKey = "4c96c46c3b68407eaeb2fd1480dc01d5"
   }
 }
 
@@ -22,14 +22,6 @@ variable "radarr_credentials" {
   }
 }
 
-variable "readarr_credentials" {
-  type = object({ url = string, apiKey = string })
-  default = {
-    url    = "https://readarr.laura.services"
-    apiKey = "c6e82571216b42ffa228d7fb0edd5e1d"
-  }
-}
-
 variable "sonarr_credentials" {
   type = object({ url = string, apiKey = string })
   default = {
@@ -38,7 +30,15 @@ variable "sonarr_credentials" {
   }
 }
 
-variable "sabnzbd_credentials" {
+variable "sabnzbd_crownpixie_credentials" {
+  type = object({ url = string, apiKey = string })
+  default = {
+    url    = "https://sabnzbd-crownpixie.wolverine.mygiga.cloud"
+    apiKey = "WGyW1ZI6lBPK8uvh7RdXhmpIggb8Xpn0"
+  }
+}
+
+variable "sabnzbd_princessdomino_credentials" {
   type = object({ url = string, apiKey = string })
   default = {
     url    = "https://sabnzbd-princessdomino.venom.mygiga.cloud"
@@ -46,7 +46,17 @@ variable "sabnzbd_credentials" {
   }
 }
 
-variable "rtorrent_credentials" {
+variable "rtorrent_crownpixie_credentials" {
+  type = object({ url = string, path = string, username = string, password = string })
+  default = {
+    url      = "rtorrent-crownpixie.wolverine.mygiga.cloud"
+    path     = "/rtrpc/"
+    username = "crownpixie"
+    password = "XdSUnq8M4fhgMvf"
+  }
+}
+
+variable "rtorrent_princessdomino_credentials" {
   type = object({ url = string, path = string, username = string, password = string })
   default = {
     url      = "https://rtorrent-princessdomino.venom.mygiga.cloud"

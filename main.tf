@@ -159,9 +159,9 @@ resource "prowlarr_indexer" "usenet-crawler_com" {
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "prowlarr_application_lidarr" "lidarr" {
-  name         = "lidarr.laura.services"
+  name         = "lidarr.princessia.org"
   sync_level   = "fullSync"
-  base_url     = "https://lidarr-princessdomino.venom.mygiga.cloud"
+  base_url     = "https://lidarr-crownpixie.wolverine.mygiga.cloud"
   prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
   api_key      = var.lidarr_credentials.apiKey
 }
@@ -174,13 +174,13 @@ resource "prowlarr_application_radarr" "radarr" {
   api_key      = var.radarr_credentials.apiKey
 }
 
-resource "prowlarr_application_readarr" "readarr" {
+/* resource "prowlarr_application_readarr" "readarr" {
   name         = "readarr.laura.services"
   sync_level   = "fullSync"
   base_url     = "https://readarr-princessdomino.venom.mygiga.cloud"
   prowlarr_url = "https://prowlarr-princessdomino.venom.mygiga.cloud"
   api_key      = var.readarr_credentials.apiKey
-}
+} */
 
 resource "prowlarr_application_sonarr" "sonarr" {
   name         = "sonarr.laura.services"
@@ -194,11 +194,11 @@ resource "lidarr_download_client_sabnzbd" "lidarr" {
   enable                     = true
   priority                   = 1
   name                       = "SABnzbd"
-  host                       = replace(var.sabnzbd_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  host                       = replace(var.sabnzbd_crownpixie_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
   url_base                   = "/"
   port                       = 443
   use_ssl                    = true
-  api_key                    = var.sabnzbd_credentials.apiKey
+  api_key                    = var.sabnzbd_crownpixie_credentials.apiKey
   remove_failed_downloads    = true
   remove_completed_downloads = true
 }
@@ -207,38 +207,38 @@ resource "radarr_download_client_sabnzbd" "radarr" {
   enable                     = true
   priority                   = 1
   name                       = "SABnzbd"
-  host                       = replace(var.sabnzbd_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  host                       = replace(var.sabnzbd_princessdomino_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
   url_base                   = "/"
   port                       = 443
   use_ssl                    = true
-  api_key                    = var.sabnzbd_credentials.apiKey
+  api_key                    = var.sabnzbd_princessdomino_credentials.apiKey
   remove_failed_downloads    = true
   remove_completed_downloads = true
 }
 
-resource "readarr_download_client_sabnzbd" "readarr" {
+/* resource "readarr_download_client_sabnzbd" "readarr" {
   enable                     = true
   priority                   = 1
   name                       = "SABnzbd"
-  host                       = replace(var.sabnzbd_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  host                       = replace(var.sabnzbd_princessdomino_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
   url_base                   = "/"
   port                       = 443
   use_ssl                    = true
-  api_key                    = var.sabnzbd_credentials.apiKey
+  api_key                    = var.sabnzbd_princessdomino_credentials.apiKey
   remove_failed_downloads    = true
   remove_completed_downloads = true
   book_category              = "books"
-}
+} */
 
 resource "sonarr_download_client_sabnzbd" "sonarr" {
   enable                     = true
   priority                   = 1
   name                       = "SABnzbd"
-  host                       = replace(var.sabnzbd_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  host                       = replace(var.sabnzbd_princessdomino_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
   url_base                   = "/"
   port                       = 443
   use_ssl                    = true
-  api_key                    = var.sabnzbd_credentials.apiKey
+  api_key                    = var.sabnzbd_princessdomino_credentials.apiKey
   remove_failed_downloads    = true
   remove_completed_downloads = true
 }
@@ -247,55 +247,61 @@ resource "lidarr_download_client_rtorrent" "lidarr" {
   enable   = true
   priority = 1
   name     = "rTorrent"
-  host     = replace(var.rtorrent_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base = var.rtorrent_credentials.path
+  host     = replace(var.rtorrent_crownpixie_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base = var.rtorrent_crownpixie_credentials.path
   port     = 443
   use_ssl  = true
-  username = var.rtorrent_credentials.username
-  password = var.rtorrent_credentials.password
+  username = var.rtorrent_crownpixie_credentials.username
+  password = var.rtorrent_crownpixie_credentials.password
+  music_category = "lidarr"
 }
 
 resource "radarr_download_client_rtorrent" "radarr" {
   enable         = true
   priority       = 1
   name           = "rTorrent"
-  host           = replace(var.rtorrent_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base       = var.rtorrent_credentials.path
+  host           = replace(var.rtorrent_princessdomino_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base       = var.rtorrent_princessdomino_credentials.path
   port           = 443
   use_ssl        = true
-  username       = var.rtorrent_credentials.username
-  password       = var.rtorrent_credentials.password
+  username       = var.rtorrent_princessdomino_credentials.username
+  password       = var.rtorrent_princessdomino_credentials.password
   movie_category = "radarr"
 }
 
-resource "readarr_download_client_rtorrent" "readarr" {
+/* resource "readarr_download_client_rtorrent" "readarr" {
   enable   = true
   priority = 1
   name     = "rTorrent"
-  host     = replace(var.rtorrent_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base = var.rtorrent_credentials.path
+  host     = replace(var.rtorrent_princessdomino_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base = var.rtorrent_princessdomino_credentials.path
   port     = 443
   use_ssl  = true
-  username = var.rtorrent_credentials.username
-  password = var.rtorrent_credentials.password
-}
+  username = var.rtorrent_princessdomino_credentials.username
+  password = var.rtorrent_princessdomino_credentials.password
+} */
 
 resource "sonarr_download_client_rtorrent" "sonarr" {
   enable      = true
   priority    = 1
   name        = "rTorrent"
-  host        = replace(var.rtorrent_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base    = var.rtorrent_credentials.path
+  host        = replace(var.rtorrent_princessdomino_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base    = var.rtorrent_princessdomino_credentials.path
   port        = 443
   use_ssl     = true
-  username    = var.rtorrent_credentials.username
-  password    = var.rtorrent_credentials.password
+  username    = var.rtorrent_princessdomino_credentials.username
+  password    = var.rtorrent_princessdomino_credentials.password
   tv_category = "sonarr"
 }
 
 # ---------------------------------------------------------------------------------------------------------------------
 # METADATA
 # ---------------------------------------------------------------------------------------------------------------------
+
+resource "lidarr_metadata_config" "settings" {
+  write_audio_tags = "sync"
+  scrub_audio_tags = true
+}
 
 resource "sonarr_metadata" "plex" {
   enable          = true
@@ -352,7 +358,7 @@ resource "radarr_media_management" "settings" {
   paths_default_static                        = false
 }
 
-resource "readarr_media_management" "settings" {
+/* resource "readarr_media_management" "settings" {
   unmonitor_previous_books    = false
   hardlinks_copy              = true
   create_empty_author_folders = true
@@ -371,7 +377,7 @@ resource "readarr_media_management" "settings" {
   file_date                   = "bookReleaseDate"
   recycle_bin_path            = ""
   rescan_after_refresh        = "always"
-}
+} */
 
 resource "sonarr_media_management" "settings" {
   unmonitor_previous_episodes = false
@@ -394,15 +400,122 @@ resource "sonarr_media_management" "settings" {
   rescan_after_refresh        = "always"
 }
 
+resource "lidarr_naming" "settings" {
+  rename_tracks              = true
+  replace_illegal_characters = true
+  standard_track_format      = "{Album Title} ({Release Year})/{Artist Name} - {Album Title} - {track:00} - {Track Title}"
+  multi_disc_track_format    = "{Album Title} ({Release Year})/{Medium Format} {medium:00}/{Artist Name} - {Album Title} - {track:00} - {Track Title}"
+  artist_folder_format       = "{Artist Name}"
+}
+
 # ---------------------------------------------------------------------------------------------------------------------
 # PROFILES
 # ---------------------------------------------------------------------------------------------------------------------
 
 resource "lidarr_metadata_profile" "extended" {
-  name                  = "Extended"
+  name                  = "Extended (Album / EP / Single)"
   primary_album_types   = [0, 1, 2]
   secondary_album_types = [0, 2]
   release_statuses      = [0]
+}
+
+resource "lidarr_metadata_profile" "restricted" {
+  name                  = "Restricted (Album / EP)"
+  primary_album_types   = [0, 1]
+  secondary_album_types = [0, 2]
+  release_statuses      = [0]
+}
+
+resource "lidarr_quality_profile" "high_quality" {
+  name = "High Quality"
+  quality_groups = [
+    {
+      id   = 1005
+      name = "Lossless"
+      qualities = [
+        {
+          id   = 6
+          name = "FLAC"
+        },
+        {
+          id   = 7
+          name = "ALAC"
+        },
+        {
+          id   = 35
+          name = "APE"
+        },
+        {
+          id   = 36
+          name = "WavPack"
+        },
+        {
+          id   = 21
+          name = "FLAC 24bit"
+        },
+        {
+          id   = 37
+          name = "ALAC 24bit"
+        },
+      ]
+    },
+    {
+      id   = 1004
+      name = "High Quality Lossy"
+      qualities = [
+        {
+          id   = 2
+          name = "MP3-VBR-V0"
+        },
+        {
+          id   = 12
+          name = "AAC-VBR"
+        },
+        {
+          id   = 4
+          name = "MP3-320"
+        },
+        {
+          id   = 15
+          name = "OGG Vorbis Q9"
+        },
+        {
+          id   = 11
+          name = "AAC-320"
+        },
+        {
+          id   = 14
+          name = "OGG Vorbis Q10"
+        },
+      ]
+    },
+    {
+      id   = 1003
+      name = "Mid Quality Lossy"
+      qualities = [
+        {
+          id   = 17
+          name = "OGG Vorbis Q7"
+        },
+        {
+          id   = 8
+          name = "MP3-VBR-V2"
+        },
+        {
+          id   = 3
+          name = "MP3-256"
+        },
+        {
+          id   = 16
+          name = "OGG Vorbis Q8"
+        },
+        {
+          id   = 10
+          name = "AAC-256"
+        },
+      ]
+    },
+  ]
 }
 
 resource "radarr_quality_definition" "bluray_1080p" {
@@ -413,7 +526,7 @@ resource "radarr_quality_definition" "bluray_1080p" {
   max_size       = 2000
 }
 
-resource "readarr_metadata_profile" "standard" {
+/* resource "readarr_metadata_profile" "standard" {
   name                  = "Standard"
   allowed_languages     = "deu"
   min_popularity        = 25
@@ -423,17 +536,17 @@ resource "readarr_metadata_profile" "standard" {
   skip_parts_and_sets   = true
   skip_series_secondary = false
   ignored               = ["Leseprobe"]
-}
+} */
 
-resource "readarr_naming" "settings" {
+/* resource "readarr_naming" "settings" {
   rename_books               = true
   replace_illegal_characters = true
   colon_replacement_format   = 0
   author_folder_format       = "{Author Name}"
   standard_book_format       = "{Book Title}/{Author Name} - {Book Title}{ (PartNumber)}"
-}
+} */
 
-resource "readarr_quality_profile" "ebook" {
+/* resource "readarr_quality_profile" "ebook" {
   name            = "eBook"
   upgrade_allowed = true
   cutoff          = 1100
@@ -454,7 +567,7 @@ resource "readarr_quality_profile" "ebook" {
       ]
     }
   ]
-}
+} */
 
 resource "sonarr_quality_definition" "bluray_1080p" {
   id             = 16
@@ -470,8 +583,8 @@ resource "sonarr_quality_definition" "bluray_1080p" {
 
 resource "lidarr_root_folder" "music" {
   name                    = "Music"
-  quality_profile_id      = 3
-  metadata_profile_id     = 1
+  quality_profile_id      = lidarr_quality_profile.high_quality.id
+  metadata_profile_id     = lidarr_metadata_profile.restricted.id
   monitor_option          = "future"
   new_item_monitor_option = "all"
   path                    = "/storage/media/Music"
@@ -486,7 +599,7 @@ resource "radarr_root_folder" "movies_anime" {
   path = "/storage/media/Movies (Anime)"
 }
 
-resource "readarr_root_folder" "books" {
+/* resource "readarr_root_folder" "books" {
   path                            = "/storage/media/Books"
   name                            = "Books"
   default_metadata_profile_id     = 1
@@ -496,7 +609,7 @@ resource "readarr_root_folder" "books" {
   is_calibre_library              = false
   # keep "default" if not used
   output_profile = "default"
-}
+} */
 
 resource "sonarr_root_folder" "series" {
   path = "/storage/media/TV Shows"
