@@ -111,17 +111,25 @@ comiccat = 107000
 updated = 2025-03-30
 dlpriority = 26
 
+[RSS_0]
+dispname = Lauras Wishlist
+enabled = True
+host = https://www.goodreads.com/review/list_rss/189099775?key=Dk4eH5BCnI-1VI69F8Ewf3X-LaAoQdPI8cZPGeaLn--J0Xft&shelf=%23ALL%23
+label = crownpixie
+
 [GEN_0]
 dispname = Genesis Library
 enabled = True
 host = libgen.is
 search = search.php
+dlpriority = 30
 
 [GEN_1]
 dispname = Genesis Library (Mirror)
 enabled = True
 host = libgen.st
 search = search.php
+dlpriority = 30
 ```
 
 ## `princessdomino`
