@@ -4,7 +4,6 @@
 
 ```
 [GENERAL]
-user_accounts = True
 homepage = Authors
 auth_type = FORM
 match_ratio = 75
@@ -13,7 +12,8 @@ config_tab_num = 5
 imp_preflang = ger, de, de-DE
 ebook_dir = /storage/media/Books
 audio_dir = /storage/media/Books
-download_dir = /storage
+alternate_dir = /storage/downloads/lazylibrarian
+download_dir = /storage/downloads/sabnzbd
 ebook_type = epub, mobi
 
 [API]
@@ -27,6 +27,7 @@ http_pass = ZcG7tXrdr8t8aLT
 
 [LOGGING]
 logdir = /config/Logs
+loglevel = 10
 
 [TELEMETRY]
 server_id = 0862eb9850974d4da164b2ce86714bfc

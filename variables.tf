@@ -26,7 +26,7 @@ variable "readarr_credentials" {
   type = object({ url = string, apiKey = string })
   default = {
     url    = "https://readarr-crownpixie.wolverine.mygiga.cloud"
-    apiKey = "2c30fc4d3f05476db27ed0ec355eb77d"
+    apiKey = "56e9878038e14b75bd4dd5d74d7bbb03"
   }
 }
 
