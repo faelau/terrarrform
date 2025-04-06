@@ -327,7 +327,7 @@ resource "radarr_download_client_rtorrent" "radarr" {
   movie_category = "radarr"
 }
 
-/* resource "readarr_download_client_rtorrent" "readarr" {
+resource "readarr_download_client_rtorrent" "readarr" {
   enable   = true
   priority = 1
   name     = "rTorrent"
@@ -337,7 +337,7 @@ resource "radarr_download_client_rtorrent" "radarr" {
   use_ssl  = true
   username = var.rtorrent_princessdomino_credentials.username
   password = var.rtorrent_princessdomino_credentials.password
-} */
+}
 
 resource "sonarr_download_client_rtorrent" "sonarr" {
   enable      = true
@@ -713,6 +713,28 @@ resource "sonarr_notification_plex" "sonarr" {
   host       = "plex-princessdomino"
   port       = 32400
   auth_token = "JMsxCCwG_jHj2ahuyQxV"
+}
+
+resource "lidarr_notification_discord" "lidarr_incoming_upgrade" {
+  on_grab               = false
+  on_import_failure     = false
+  on_upgrade            = true
+  on_rename             = false
+  on_download_failure   = false
+  on_track_retag        = false
+  on_release_import     = true
+  on_health_issue       = false
+  on_application_update = false
+
+  include_health_warnings = false
+  name                    = "Discord (Incoming & Upgrades)"
+
+  web_hook_url  = "https://discord.com/api/webhooks/1358158464479924344/9SIijdEWwYJaU0JRFGNKmviJR7Vx-D1-K6VPH9M0Qns0-Cfg79fVLvR-ojPGAJlRrtxh"
+  username      = "butler"
+  author        = "Musik"
+  avatar        = "https://avatars.githubusercontent.com/u/28475832?v=4"
+  grab_fields   = [0, 1, 2, 3, 5, 6, 8, 9]
+  import_fields = [0, 1, 2, 3, 5, 6, 8, 9]
 }
 
 resource "radarr_notification_discord" "radarr_incoming_upgrade" {
