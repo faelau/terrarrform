@@ -331,12 +331,12 @@ resource "readarr_download_client_rtorrent" "readarr" {
   enable   = true
   priority = 1
   name     = "rTorrent"
-  host     = replace(var.rtorrent_princessdomino_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
-  url_base = var.rtorrent_princessdomino_credentials.path
+  host     = replace(var.rtorrent_crownpixie_credentials.url, "/^([a-z][a-z0-9+\\-.]*):///", "")
+  url_base = var.rtorrent_crownpixie_credentials.path
   port     = 443
   use_ssl  = true
-  username = var.rtorrent_princessdomino_credentials.username
-  password = var.rtorrent_princessdomino_credentials.password
+  username = var.rtorrent_crownpixie_credentials.username
+  password = var.rtorrent_crownpixie_credentials.password
 }
 
 resource "sonarr_download_client_rtorrent" "sonarr" {
