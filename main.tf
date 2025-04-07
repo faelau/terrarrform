@@ -2,6 +2,35 @@
 # INDEXERS
 # ---------------------------------------------------------------------------------------------------------------------
 
+resource "prowlarr_indexer" "headphones" {
+  enable          = true
+  name            = "Headphones VIP"
+  implementation  = "Headphones"
+  config_contract = "HeadphonesSettings"
+  protocol        = "usenet"
+  priority        = 25
+  app_profile_id  = 1
+  fields = [
+    {
+      "name" : "baseSettings.limitsUnit",
+      "number_value" : 0,
+
+    },
+    {
+      "name" : "baseUrl",
+      "text_value" : "https://indexer.codeshy.com"
+    },
+    {
+      "name" : "password",
+      "sensitive_value" : "mzy3yWgUUhcXGtCf2k",
+    },
+    {
+      "name" : "username",
+      "text_value" : "crownpxie"
+    }
+  ]
+}
+
 resource "prowlarr_indexer" "myanonamouse" {
   enable          = false
   name            = "MyAnonamouse"
