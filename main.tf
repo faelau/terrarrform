@@ -9,7 +9,7 @@ resource "prowlarr_indexer" "headphones" {
   config_contract = "HeadphonesSettings"
   protocol        = "usenet"
   priority        = 25
-  app_profile_id  = 2
+  app_profile_id  = 1
   fields = [
     {
       "name" : "baseSettings.limitsUnit",
