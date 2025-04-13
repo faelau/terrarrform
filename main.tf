@@ -819,3 +819,18 @@ resource "sonarr_notification_discord" "sonarr_incoming_upgrade" {
   grab_fields   = [0, 1, 2, 3, 5, 6, 8, 9]
   import_fields = [0, 1, 2, 3, 4, 6, 7, 8, 9, 11, 12]
 }
+
+# ---------------------------------------------------------------------------------------------------------------------
+# LIST EXCLUSIONS
+# ---------------------------------------------------------------------------------------------------------------------
+
+resource "readarr_import_list_exclusion" "abby_lynn_unneeded" {
+  author_name = "Rainer M. Schröder - Abby Lynn: Verbannt ans Ende der Welt, Verschollen in der Wildnis & Verraten und Verfolgt"
+  foreign_id = "25189202"
+}
+
+resource "readarr_import_list_exclusion" "himmel_ohne_sterne_duplicate" {
+  author_name = "Rainer M. Schröder - Himmel ohne Sterne: Der lange Weg nach Palästina"
+  foreign_id = "72943214"
+}
+
