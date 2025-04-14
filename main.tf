@@ -513,6 +513,13 @@ resource "lidarr_metadata_profile" "restricted" {
   release_statuses      = [0]
 }
 
+resource "lidarr_metadata_profile" "straitjacket" {
+  name                  = "Straitjacket (Album)"
+  primary_album_types   = [0]
+  secondary_album_types = [0]
+  release_statuses      = [0]
+}
+
 resource "lidarr_quality_profile" "high_quality" {
   name = "High Quality"
   quality_groups = [
@@ -834,3 +841,12 @@ resource "readarr_import_list_exclusion" "himmel_ohne_sterne_duplicate" {
   foreign_id = "72943214"
 }
 
+resource "lidarr_import_list_exclusion" "kill_this_love_duplicate" {
+  artist_name = "KILL THIS LOVE -JP ver.-"
+  foreign_id = "1ff48dab-0fdd-42c9-b0fd-07cf271993c7"
+}
+
+resource "lidarr_import_list_exclusion" "the_album_duplicate" {
+  artist_name = "THE ALBUM -JP ver.-"
+  foreign_id = "5021ee69-a944-4b31-966c-73d8918a47f3"
+}
