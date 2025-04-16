@@ -675,16 +675,6 @@ resource "sonarr_quality_definition" "bluray_1080p" {
 # ROOT FOLDERS
 # ---------------------------------------------------------------------------------------------------------------------
 
-resource "lidarr_root_folder" "audio_drama" {
-  name                    = "Audio Drama"
-  quality_profile_id      = lidarr_quality_profile.high_quality.id
-  metadata_profile_id     = 2
-  monitor_option          = "none"
-  new_item_monitor_option = "none"
-  path                    = "/storage/media/Audio Drama"
-  tags                    = [1]
-}
-
 resource "lidarr_root_folder" "music" {
   name                    = "Music"
   quality_profile_id      = lidarr_quality_profile.high_quality.id
